@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lover Site!</title>
+  <title>Lover Site — Unified</title>
   <style>
-    /* --- all your original CSS unchanged --- */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     :root{
       --glass-bg: rgba(18,18,20,0.44);
@@ -18,177 +17,302 @@
     html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:#101018;color:var(--text-soft);}
     .page {position:relative;min-height:100vh;overflow:hidden;}
     .bg-layer {position:absolute;inset:0;z-index:0;transition:opacity 900ms ease;
-      background:linear-gradient(90deg,#f48fb1 0%,#64b5f6 100%);
-      filter:saturate(0.92) contrast(0.95) brightness(0.88);}
+      background:linear-gradient(90deg,#f48fb1 0%,#64b5f6 100%);filter:saturate(0.92) contrast(0.95) brightness(0.88);}
     .bg-breathe {position:absolute;inset:0;z-index:1;pointer-events:none;
       background:radial-gradient(1200px 600px at 20% 30%,rgba(255,255,255,0.02),transparent 15%),
                  radial-gradient(900px 600px at 80% 70%,rgba(255,255,255,0.01),transparent 12%);
       animation:breathe 8s ease-in-out infinite;mix-blend-mode:overlay;}
     @keyframes breathe {0%{opacity:.92;transform:scale(1);}50%{opacity:.98;transform:scale(1.01);}100%{opacity:.92;transform:scale(1);}}
-    .content {position:relative;z-index:5;padding:48px 20px;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;box-sizing:border-box;}
-    .glass {width:100%;max-width:760px;margin:48px auto;background:var(--glass-bg);
-      border-radius:18px;padding:28px;box-shadow:var(--card-shadow);backdrop-filter:blur(10px) saturate(0.9);
-      -webkit-backdrop-filter:blur(10px) saturate(0.9);border:1px solid rgba(255,255,255,0.04);
-      color:var(--text-soft);text-align:center;}
+    .content {position:relative;z-index:5;padding:28px 18px;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;box-sizing:border-box;}
+    .glass {width:100%;max-width:980px;margin:28px auto;background:var(--glass-bg);
+      border-radius:18px;padding:20px;box-shadow:var(--card-shadow);backdrop-filter:blur(10px) saturate(0.9);
+      -webkit-backdrop-filter:blur(10px) saturate(0.9);border:1px solid rgba(255,255,255,0.04);color:var(--text-soft);}
     h1,h2,h3,h4,p,label,button{ text-shadow: var(--glow); }
     h1{margin:6px 0 12px;font-weight:600;letter-spacing:0.6px}
     p { margin:8px 0; color:var(--muted); font-weight:300; }
     .login-row { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:8px; }
-    input[type="password"]{
-      padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:16px;width:260px;
-      background:rgba(255,255,255,0.03);color:var(--text-soft);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+    input[type="password"], input[type="text"], input[type="file"], textarea {
+      padding:10px 12px;border-radius:10px;border:none;outline:none;font-size:15px;
+      background:rgba(255,255,255,0.03);color:var(--text-soft);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
     }
-    button {
-      padding:10px 18px;border-radius:12px;border:none;background:linear-gradient(180deg,var(--accent),#d86d8f);
-      color:white;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(200,80,120,0.12);
-      transition: transform 160ms ease, box-shadow 160ms ease;
-    }
+    button { padding:8px 16px;border-radius:10px;border:none;background:linear-gradient(180deg,var(--accent),#d86d8f); color:white;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(200,80,120,0.12);transition: transform 160ms ease, box-shadow 160ms ease;}
     button:hover{ transform: translateY(-3px); box-shadow:0 12px 36px rgba(200,80,120,0.12); }
-    .color-section { margin-top:18px; border-top:1px solid rgba(255,255,255,0.03); padding-top:18px; display:grid; gap:12px; }
-    .pair {display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
-    .pair .label { text-align:left; font-weight:600; color:var(--text-soft); width:160px; }
+    .tabs {display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;justify-content:center;}
+    .tab {background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 12px;cursor:pointer;border:1px solid rgba(255,255,255,0.04);}
+    .tab.active{box-shadow:0 8px 28px rgba(0,0,0,0.45);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));}
+    .grid {display:grid;grid-template-columns:1fr 360px;gap:14px;align-items:start;}
+    .panel {background:rgba(255,255,255,0.02);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);}
+    .profile-row{display:flex;gap:12px;align-items:center;}
+    .avatar {width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid rgba(255,255,255,0.04);}
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .small{font-size:13px;color:var(--muted);}
     .swatch { width:44px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02); }
-    .hint { font-size:13px;color:rgba(255,255,255,0.6);margin-top:6px; }
-    iframe { border-radius:12px; margin-top:10px; width:100%; max-width:500px; border:0; }
-    footer { margin-top:16px; font-size:13px; color:rgba(255,255,255,0.6); }
-    .reveal { animation: revealIn 700ms cubic-bezier(.2,.9,.2,1) both; }
-    @keyframes revealIn {from{opacity:0;transform:translateY(18px) scale(.995);}to{opacity:1;transform:translateY(0) scale(1);}}
-    /* dropdown, modal, status, etc. all same as before */
-    .dropdown{position:relative;display:inline-block;width:220px;font-family:'Poppins',sans-serif;}
-    .dropdown-button{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:12px 40px 12px 14px;color:var(--text-soft);cursor:pointer;text-align:left;font-size:15px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);transition:all 0.25s ease;position:relative;}
-    .dropdown-button::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);transition:color 0.25s ease;}
-    .dropdown-button:hover{background:rgba(255,255,255,0.06);box-shadow:0 0 0 2px rgba(255,255,255,0.06);}
-    .dropdown-button:hover::after{color:var(--accent);}
-    .dropdown-list{position:absolute;top:calc(100% + 6px);left:0;right:0;background:rgba(18,18,20,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.4);backdrop-filter:blur(12px) saturate(0.9);display:none;flex-direction:column;z-index:10;overflow:hidden;animation:dropdownFade 0.2s ease forwards;}
-    @keyframes dropdownFade{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
-    .dropdown-list.show{display:flex;}
-    .dropdown-option{padding:10px 14px;font-size:15px;color:var(--text-soft);cursor:pointer;transition:background 0.15s ease, color 0.15s ease;}
-    .dropdown-option:hover{background:rgba(255,255,255,0.07);color:var(--accent);}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;z-index:10000;align-items:center;justify-content:center;}
-    .modal{width:min(680px,92%);background:rgba(10,10,12,0.96);border-radius:12px;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,0.6);color:var(--text-soft);}
-    .modal textarea{width:100%;height:180px;border-radius:10px;padding:12px;resize:vertical;background:rgba(255,255,255,0.03);color:var(--text-soft);border:1px solid rgba(255,255,255,0.04);outline:none;}
-    .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px;}
-    #status{position:fixed;bottom:14px;right:14px;display:flex;gap:8px;align-items:center;z-index:9999;color:var(--muted);background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
-    #status .dot{width:10px;height:10px;border-radius:50%;background:#b94a4a;box-shadow:0 0 8px rgba(185,74,74,0.16);}
-    #status.connected .dot{background:#5fbf6b;box-shadow:0 0 12px rgba(95,191,107,0.28);}
-    #countdown{margin-top:6px;font-weight:600;color:var(--accent);}
-    @media (max-width:720px){.glass{margin:24px 16px;padding:20px;}.pair{flex-direction:column;align-items:flex-start;}.pair .label{width:100%;}.dropdown{width:100%;}}
+    .gallery {display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;}
+    .gallery img{width:100%;height:100px;object-fit:cover;border-radius:8px;cursor:pointer;display:block;}
+    .memory-item{border-radius:8px;padding:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;}
+    .chat-window{height:360px;overflow:auto;padding:8px;border-radius:8px;background:rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px;}
+    .message{display:flex;gap:8px;align-items:flex-end;}
+    .message.me{justify-content:flex-end;}
+    .message .bubble{max-width:70%;padding:10px;border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text-soft);box-shadow:0 6px 20px rgba(0,0,0,0.45);}
+    .message.me .bubble{background:linear-gradient(180deg,#ff9db0,#e07a9a);color:#111;}
+    .message img.msg-img{width:160px;height:100px;object-fit:cover;border-radius:8px;display:block;}
+    .typing {font-size:13px;color:var(--muted);margin-top:6px;}
+    .controls{display:flex;gap:8px;align-items:center;margin-top:8px;}
+    .hidden{display:none;}
+    footer{margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr;} .glass{padding:16px;} .chat-window{height:280px;} }
   </style>
 </head>
 <body>
   <div class="page">
-    <div id="bg-main" class="bg-layer" style="opacity:1;"></div>
-    <div id="bg-top" class="bg-layer" style="opacity:0;"></div>
+    <div id="bg-main" class="bg-layer"></div>
     <div class="bg-breathe" aria-hidden="true"></div>
 
     <main class="content">
-      <!-- LOGIN CARD -->
       <section class="glass" id="loginCard">
-        <h2>Site Login<h2>
-        <p>Enter the secret password to enter:</p>
+        <h2>Welcome — Safe Space</h2>
+        <p>Enter the secret password to enter and choose who you are.</p>
         <div class="login-row">
           <input id="passwordInput" type="password" placeholder="Password" />
+          <label style="display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
           <button id="enterBtn">Enter</button>
         </div>
-        <!-- NEW remember me -->
-        <div style="margin-top:10px;font-size:14px;">
-          <label><input type="checkbox" id="rememberMe" style="margin-right:6px;">Remember me</label>
-        </div>
+        <p class="small">After entering the password you'll pick either <strong>Logan</strong> or <strong>Ezekiel</strong>.</p>
       </section>
 
-      <!-- MAIN CONTENT -->
-      <section class="glass reveal" id="mainContent" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h1>Lover Site / Safe Space</h1>
-          <!-- NEW logout button -->
-          <button id="logoutBtn" style="background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:10px;font-size:14px;">Logout</button>
-        </div>
-        <p><strong>Anniversary:</strong> November 2</p>
-        <p id="countdown" aria-live="polite"></p>
-
-        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:12px;">
-          <button id="openNoteBtn" title="Open shared note" style="font-size:20px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);">
-            ★
-          </button>
-          <div id="notePreview" style="max-width:560px;color:var(--muted);font-size:14px;text-align:left;">(No shared note yet — click the ★ to add)</div>
+      <section class="glass reveal hidden" id="mainContent">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <h1>Lover Site / Safe Space</h1>
+            <p class="small"><strong>Anniversary:</strong> November 2 · <span id="countdown"></span></p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div id="userBadge" class="small"></div>
+            <button id="logoutBtn" style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:10px;font-size:14px;">Logout</button>
+          </div>
         </div>
 
-        <!-- rest of content unchanged -->
-        <div class="color-section" aria-label="Colors">
-          <h3 style="margin:6px 0 4px;">Our Colors!</h3>
-          <!-- ... existing dropdowns unchanged ... -->
-          <div class="pair">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="label">Logan</div>
-              <div class="dropdown" data-person="logan">
-                <div class="dropdown-button">— choose —</div>
-                <div class="dropdown-list">
-                  <div class="dropdown-option" data-value="red">Dominant</div>
-                  <div class="dropdown-option" data-value="orange">Confused</div>
-                  <div class="dropdown-option" data-value="yellow">Breeding</div>
-                  <div class="dropdown-option" data-value="green">Submissive</div>
-                  <div class="dropdown-option" data-value="lightblue">Lovey</div>
-                  <div class="dropdown-option" data-value="blue">Attention</div>
-                  <div class="dropdown-option" data-value="purple">Desperate</div>
-                  <div class="dropdown-option" data-value="pink">Romantic</div>
-                  <div class="dropdown-option" data-value="white">Flustered</div>
-                  <div class="dropdown-option" data-value="brown">Annoyed</div>
+        <div class="tabs" role="tablist" aria-label="Main navigation">
+          <div class="tab active" data-tab="dashboard">Dashboard</div>
+          <div class="tab" data-tab="chat">Chat</div>
+          <div class="tab" data-tab="gallery">Memory Gallery</div>
+          <div class="tab" data-tab="memories">Memory Bank</div>
+          <div class="tab" data-tab="profile">Profile</div>
+          <div class="tab" data-tab="quotes">Quotes & Challenges</div>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <!-- MAIN COLUMN -->
+          <div>
+            <!-- DASHBOARD -->
+            <div id="tab-dashboard" class="panel tabPanel">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">
+                <div style="display:flex;gap:12px;align-items:center;">
+                  <div class="avatar" id="leftAvatar"><img id="leftAvatarImg" src="" alt=""></div>
+                  <div>
+                    <div id="leftName" style="font-weight:600">—</div>
+                    <div id="leftPet" class="small"></div>
+                    <div id="leftEmotion" class="small"></div>
+                  </div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:center;">
+                  <div class="avatar" id="rightAvatar"><img id="rightAvatarImg" src="" alt=""></div>
+                  <div>
+                    <div id="rightName" style="font-weight:600;text-align:right">—</div>
+                    <div id="rightPet" class="small" style="text-align:right"></div>
+                    <div id="rightEmotion" class="small" style="text-align:right"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;">
+                <button id="openNoteBtn">★ Shared Note</button>
+                <button id="openUploadMemoryBtn" style="background:rgba(255,255,255,0.03);color:var(--text-soft);border:1px solid rgba(255,255,255,0.04);">Upload Memory</button>
+                <button id="openNewMemoryBtn" style="background:rgba(255,255,255,0.03);color:var(--text-soft);border:1px solid rgba(255,255,255,0.04);">Add Text Memory</button>
+              </div>
+
+              <div style="margin-top:12px;">
+                <h3 style="margin:6px 0">Quote of the Day</h3>
+                <p id="quote" style="font-style:italic;"></p>
+
+                <h3 style="margin-top:12px;">Daily Challenge</h3>
+                <div id="dailyChallenge" style="margin-bottom:6px;font-weight:400;color:var(--muted);"></div>
+              </div>
+            </div>
+
+            <!-- CHAT -->
+            <div id="tab-chat" class="panel tabPanel hidden">
+              <h3 style="margin:6px 0 10px 0;">Chat</h3>
+              <div class="chat-window" id="chatWindow" aria-live="polite"></div>
+              <div class="typing" id="typingStatus"></div>
+
+              <div class="controls">
+                <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;">
+                <input id="chatImageInput" type="file" accept="image/*" class="hidden">
+                <button id="pickImageBtn" title="Attach image">🖼️</button>
+
+                <button id="recordBtn" title="Record voice message">🎙️</button>
+                <button id="sendBtn">Send</button>
+              </div>
+              <div id="recIndicator" class="small hidden">Recording… <button id="stopRecBtn">Stop</button></div>
+            </div>
+
+            <!-- GALLERY -->
+            <div id="tab-gallery" class="panel tabPanel hidden">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="margin:6px 0">Memory Gallery</h3>
+                <div class="small">Click an image to open</div>
+              </div>
+              <div id="galleryGrid" class="gallery" style="margin-top:10px;"></div>
+            </div>
+
+            <!-- MEMORY BANK -->
+            <div id="tab-memories" class="panel tabPanel hidden">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="margin:6px 0">Memory Bank</h3>
+                <button id="addMemoryBtn" style="background:rgba(255,255,255,0.03)">New Memory</button>
+              </div>
+              <div id="memoriesList" style="margin-top:10px"></div>
+            </div>
+
+            <!-- PROFILE -->
+            <div id="tab-profile" class="panel tabPanel hidden">
+              <h3 style="margin:6px 0">Profile & Preferences</h3>
+              <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                <div class="profile-row">
+                  <div class="avatar" id="myAvatar"><img id="myAvatarImg" src=""></div>
+                  <div>
+                    <div><strong id="displayName">—</strong></div>
+                    <div class="small">Pet name for them: <span id="myPetPreview"></span></div>
+                  </div>
+                </div>
+
+                <div style="margin-left:auto;">
+                  <label class="small">Upload Profile Photo</label>
+                  <input id="profilePicInput" type="file" accept="image/*">
+                </div>
+              </div>
+
+              <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                <div>
+                  <label class="small">Set Pet Name For Them</label><br>
+                  <input id="petNameInput" placeholder="Sweetheart">
+                  <button id="savePetBtn">Save</button>
+                </div>
+
+                <div>
+                  <label class="small">Set Emotion / Mood</label><br>
+                  <select id="emotionSelect">
+                    <option value="">— choose mood —</option>
+                    <option value="happy">Happy</option>
+                    <option value="sad">Sad</option>
+                    <option value="upset">Upset / Angry</option>
+                    <option value="depressed">Depressed</option>
+                    <option value="concerned">Concerned / Worried</option>
+                    <option value="frightened">Frightened / Afraid</option>
+                    <option value="lovey">Lovey</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="annoyed">Annoyed</option>
+                    <option value="dominant">Dominant</option>
+                    <option value="submissive">Submissive</option>
+                    <option value="attention">Attention</option>
+                    <option value="desperate">Desperate</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="small">Choose Local Display Name</label><br>
+                  <input id="localNameInput" placeholder="Logan or Ezekiel">
+                  <button id="saveLocalNameBtn">Save</button>
                 </div>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div id="loganSwatch" class="swatch"></div>
+
+            <!-- Quotes & Challenges -->
+            <div id="tab-quotes" class="panel tabPanel hidden">
+              <h3 style="margin:6px 0">Quotes & Challenges</h3>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input id="newQuoteInput" placeholder="Add a new quote" style="flex:1">
+                <button id="addQuoteBtn">Add Quote</button>
+              </div>
+              <div id="quotesList" style="margin-top:8px"></div>
+
+              <hr style="margin:10px 0;border-color:rgba(255,255,255,0.03)">
+
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input id="newChallengeInput" placeholder="Add a new challenge" style="flex:1">
+                <button id="addChallengeBtn">Add Challenge</button>
+              </div>
+              <div id="challengesList" style="margin-top:8px"></div>
             </div>
           </div>
 
-          <div class="pair" style="margin-top:6px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="label">Ezekiel</div>
-              <div class="dropdown" data-person="ezekiel">
-                <div class="dropdown-button">— choose —</div>
-                <div class="dropdown-list">
-                  <div class="dropdown-option" data-value="red">Dominant</div>
-                  <div class="dropdown-option" data-value="orange">Confused</div>
-                  <div class="dropdown-option" data-value="yellow">Breeding</div>
-                  <div class="dropdown-option" data-value="green">Submissive</div>
-                  <div class="dropdown-option" data-value="lightblue">Lovey</div>
-                  <div class="dropdown-option" data-value="blue">Attention</div>
-                  <div class="dropdown-option" data-value="purple">Desperate</div>
-                  <div class="dropdown-option" data-value="pink">Romantic</div>
-                  <div class="dropdown-option" data-value="white">Flustered</div>
-                  <div class="dropdown-option" data-value="brown">Annoyed</div>
+          <!-- RIGHT COLUMN -->
+          <div>
+            <div class="panel">
+              <div style="display:flex;gap:12px;align-items:center;">
+                <div class="avatar" id="meAvatarSmall"><img id="meAvatarSmallImg" src=""></div>
+                <div>
+                  <div id="meGreeting" style="font-weight:600">—</div>
+                  <div class="small" id="meSub">Your space</div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;">
+                <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div class="small">Status</div>
+                    <div id="statusText" class="small">Connecting…</div>
+                  </div>
+                  <div id="statusDot" style="width:12px;height:12px;border-radius:50%;background:#b94a4a;box-shadow:0 0 8px rgba(185,74,74,0.16);"></div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:6px 0">Colors</h4>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <div class="label">Logan</div><div id="loganSwatch" class="swatch"></div>
+                  </div>
+                  <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
+                    <div class="label">Ezekiel</div><div id="ezekielSwatch" class="swatch"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div id="ezekielSwatch" class="swatch"></div>
-            </div>
-          </div>
 
-          <div class="hint">Your choices sync automatically and update the background for both of you.</div>
+            <div class="panel" style="margin-top:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h4 style="margin:6px 0">Shared Note</h4>
+                <button id="openNoteBtn2" style="background:rgba(255,255,255,0.03)">Open</button>
+              </div>
+              <div id="notePreview" style="color:var(--muted);min-height:44px;margin-top:6px">(No shared note yet — click Open)</div>
+            </div>
+
+            <div class="panel" style="margin-top:12px;">
+              <h4 style="margin:6px 0">Quick Controls</h4>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <button id="goToChat" style="background:rgba(255,255,255,0.03)">Open Chat</button>
+                <button id="goToGallery" style="background:rgba(255,255,255,0.03)">Open Gallery</button>
+                <button id="goToProfile" style="background:rgba(255,255,255,0.03)">Profile</button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <h3 style="margin-top:14px;">Quote of the Day</h3>
-        <p id="quote" style="font-style:italic;"></p>
-
-        <h3 style="margin-top:14px;">Daily Challenge</h3>
-        <div id="dailyChallenge" style="margin-bottom:16px;font-weight:400;color:var(--muted);"></div>
-        
-        <h3 style="margin-top:12px;">Our Spotify Playlist</h3>
-        <iframe src="https://open.spotify.com/embed/playlist/5YUZZEc6SYVn1JHeUHonhQ?utm_source=generator" height="380" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-        <footer>Safe Space!</footer>
+        <footer>Safe Space — built for you two ♥</footer>
       </section>
     </main>
   </div>
 
-  <!-- modal + status unchanged -->
-  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Shared note">
+  <!-- Shared Note Modal -->
+  <div id="modalBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center;">
+    <div style="width:min(760px,94%);background:rgba(10,10,12,0.97);border-radius:12px;padding:14px;box-shadow:0 12px 40px rgba(0,0,0,0.6);color:var(--text-soft);">
       <h3 style="margin:0 0 8px 0;">Shared Note</h3>
-      <textarea id="sharedNoteTextarea" placeholder="Write something sweet, a memory, a plan..."></textarea>
-      <div class="actions">
+      <textarea id="sharedNoteTextarea" placeholder="Write something sweet, a memory, a plan..." style="width:100%;height:160px;border-radius:10px;padding:12px;background:rgba(255,255,255,0.03);color:var(--text-soft);border:1px solid rgba(255,255,255,0.04);"></textarea>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px;">
         <button id="saveNoteBtn">Save</button>
         <button id="closeNoteBtn">Close</button>
       </div>
@@ -196,16 +320,23 @@
     </div>
   </div>
 
-  <div id="status"><div class="dot"></div><div id="statusText">Connecting...</div></div>
+  <!-- Image Lightbox -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:12000;align-items:center;justify-content:center;padding:20px;">
+    <div style="max-width:92%;max-height:92%;"><img id="lightboxImg" src="" style="max-width:100%;max-height:100%;border-radius:12px;display:block"></div>
+  </div>
+
+  <div id="status" style="position:fixed;bottom:14px;right:14px;display:flex;gap:8px;align-items:center;z-index:9999;color:var(--muted);background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);">
+    <div id="statusDotSmall" style="width:10px;height:10px;border-radius:50%;background:#b94a4a;"></div>
+    <div id="statusTextSmall">Connecting...</div>
+  </div>
 
   <script type="module">
-    /* --- all your original Firebase + app logic unchanged --- */
+    // Firebase imports (Realtime DB + Storage)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { getDatabase, ref, set, onValue, push, update, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { getStorage, ref as sref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
 
-    // (All original JS is identical up to and including the password handler)
-
-    const firebaseConfig = { /* unchanged config */ 
+    const firebaseConfig = {
       apiKey: "AIzaSyAPR-TAnTSg7D2dkVjBU8SPBtTEtiztcsI",
       authDomain: "ezekiellogancolors.firebaseapp.com",
       databaseURL: "https://ezekiellogancolors-default-rtdb.firebaseio.com",
@@ -217,6 +348,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const storage = getStorage(app);
 
     // ELEMENTS
     const passwordInput = document.getElementById("passwordInput");
@@ -227,7 +359,6 @@
     const logoutBtn = document.getElementById("logoutBtn");
 
     const bgMain = document.getElementById("bg-main");
-    const bgTop = document.getElementById("bg-top");
     const loganSwatch = document.getElementById("loganSwatch");
     const ezekielSwatch = document.getElementById("ezekielSwatch");
     const quoteEl = document.getElementById("quote");
@@ -236,241 +367,697 @@
 
     const notePreview = document.getElementById("notePreview");
     const openNoteBtn = document.getElementById("openNoteBtn");
+    const openNoteBtn2 = document.getElementById("openNoteBtn2");
     const modalBackdrop = document.getElementById("modalBackdrop");
     const textarea = document.getElementById("sharedNoteTextarea");
     const closeNoteBtn = document.getElementById("closeNoteBtn");
     const saveNoteBtn = document.getElementById("saveNoteBtn");
 
     const statusEl = document.getElementById("status");
-    const statusText = document.getElementById("statusText");
+    const statusText = document.getElementById("statusTextSmall");
+    const statusDot = document.getElementById("statusDotSmall");
 
-    const PASSWORD = "Z+L-Forever"; // your secret
+    const tabs = document.querySelectorAll(".tab");
+    const tabPanels = document.querySelectorAll(".tabPanel");
 
-    // REMEMBER ME: auto-login if remembered
+    const userBadge = document.getElementById("userBadge");
+    const meGreeting = document.getElementById("meGreeting");
+    const meAvatarSmallImg = document.getElementById("meAvatarSmallImg");
+    const meAvatarSmall = document.getElementById("meAvatarSmall");
+
+    // Profile inputs
+    const profilePicInput = document.getElementById("profilePicInput");
+    const myAvatarImg = document.getElementById("myAvatarImg");
+    const petNameInput = document.getElementById("petNameInput");
+    const savePetBtn = document.getElementById("savePetBtn");
+    const emotionSelect = document.getElementById("emotionSelect");
+    const localNameInput = document.getElementById("localNameInput");
+    const saveLocalNameBtn = document.getElementById("saveLocalNameBtn");
+
+    // Other UI
+    const openUploadMemoryBtn = document.getElementById("openUploadMemoryBtn");
+    const openNewMemoryBtn = document.getElementById("openNewMemoryBtn");
+    const galleryGrid = document.getElementById("galleryGrid");
+    const memoriesList = document.getElementById("memoriesList");
+    const addMemoryBtn = document.getElementById("addMemoryBtn");
+
+    // Quotes & challenges
+    const newQuoteInput = document.getElementById("newQuoteInput");
+    const addQuoteBtn = document.getElementById("addQuoteBtn");
+    const quotesList = document.getElementById("quotesList");
+    const newChallengeInput = document.getElementById("newChallengeInput");
+    const addChallengeBtn = document.getElementById("addChallengeBtn");
+    const challengesList = document.getElementById("challengesList");
+
+    // Chat
+    const chatWindow = document.getElementById("chatWindow");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const pickImageBtn = document.getElementById("pickImageBtn");
+    const chatImageInput = document.getElementById("chatImageInput");
+    const recordBtn = document.getElementById("recordBtn");
+    const recIndicator = document.getElementById("recIndicator");
+    const stopRecBtn = document.getElementById("stopRecBtn");
+    const typingStatus = document.getElementById("typingStatus");
+
+    // avatars and dashboard
+    const leftAvatarImg = document.getElementById("leftAvatarImg");
+    const rightAvatarImg = document.getElementById("rightAvatarImg");
+    const leftName = document.getElementById("leftName");
+    const leftPet = document.getElementById("leftPet");
+    const leftEmotion = document.getElementById("leftEmotion");
+    const rightName = document.getElementById("rightName");
+    const rightPet = document.getElementById("rightPet");
+    const rightEmotion = document.getElementById("rightEmotion");
+    const meAvatarImg = document.getElementById("myAvatarImg");
+    const meAvatarSmallImgEl = document.getElementById("meAvatarSmallImg");
+    const meGreetingEl = document.getElementById("meGreeting");
+    const displayNameEl = document.getElementById("displayName");
+    const myPetPreview = document.getElementById("myPetPreview");
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+
+    // constants & mappings
+    const PASSWORD = "Z+L-Forever";
+    const USERS = ["logan", "ezekiel"];
+    const EMOTION_MAP = {
+      happy: { hex: "#FFE066", label: "Happy", emoji: "😊" },
+      sad: { hex: "#64b5f6", label: "Sad", emoji: "😔" },
+      upset: { hex: "#e57373", label: "Upset / Angry", emoji: "😡" },
+      depressed: { hex: "#455a64", label: "Depressed", emoji: "🖤" },
+      concerned: { hex: "#ffcc80", label: "Concerned / Worried", emoji: "😟" },
+      frightened: { hex: "#90caf9", label: "Frightened / Afraid", emoji: "😨" },
+      lovey: { hex: "#81d4fa", label: "Lovey", emoji: "🥰" },
+      romantic: { hex: "#f48fb1", label: "Romantic", emoji: "💗" },
+      annoyed: { hex: "#8d6e63", label: "Annoyed", emoji: "😒" },
+      dominant: { hex: "#ef5350", label: "Dominant", emoji: "🔥" },
+      submissive: { hex: "#81c784", label: "Submissive", emoji: "🫶" },
+      attention: { hex: "#64b5f6", label: "Attention", emoji: "👀" },
+      desperate: { hex: "#ba68c8", label: "Desperate", emoji: "💫" }
+    };
+
+    // local app state
+    let me = null; // "logan" or "ezekiel"
+    let myDisplayName = "";
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let typingTimer = null;
+
+    // SIMPLE NAV
+    tabs.forEach(t => t.addEventListener("click", () => {
+      tabs.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      const which = t.dataset.tab;
+      tabPanels.forEach(p => p.classList.add("hidden"));
+      document.getElementById("tab-" + which).classList.remove("hidden");
+      // autofocus for chat input
+      if (which === "chat") chatInput.focus();
+    }));
+
+    // small nav shortcuts
+    document.getElementById("goToChat").addEventListener("click", () => document.querySelector('.tab[data-tab="chat"]').click());
+    document.getElementById("goToGallery").addEventListener("click", () => document.querySelector('.tab[data-tab="gallery"]').click());
+    document.getElementById("goToProfile").addEventListener("click", () => document.querySelector('.tab[data-tab="profile"]').click());
+
+    // LIGHTBOX
+    lightbox.addEventListener("click", () => lightbox.style.display = "none");
+
+    // AUTH (simple password + pick identity)
     window.addEventListener("load", () => {
-      if (localStorage.getItem("rememberZL") === "true") {
+      if (localStorage.getItem("rememberZL") === "true" && localStorage.getItem("zlUser")) {
+        me = localStorage.getItem("zlUser");
+        meDisplayName = localStorage.getItem("zlDisplayName") || (me === "logan" ? "Logan" : "Ezekiel");
         showMain();
       }
     });
 
-    // LOGIN handler
-    enterBtn.addEventListener("click", () => {
+    enterBtn.addEventListener("click", async () => {
       const entered = passwordInput.value.trim();
       if (entered === PASSWORD) {
-        if (rememberMe.checked) {
-          localStorage.setItem("rememberZL", "true");
-        } else {
-          localStorage.removeItem("rememberZL");
+        // choose identity modal (simple prompt so it remains single-file)
+        let pick = localStorage.getItem("zlUser");
+        if (!pick) {
+          pick = prompt("Who are you? Type 'Logan' or 'Ezekiel'").toLowerCase();
         }
+        if (!["logan","ezekiel"].includes(pick)) {
+          alert("Please enter 'Logan' or 'Ezekiel' to continue.");
+          return;
+        }
+        me = pick;
+        myDisplayName = pick === "logan" ? "Logan" : "Ezekiel";
+        if (rememberMe.checked) localStorage.setItem("rememberZL","true");
+        localStorage.setItem("zlUser", me);
+        localStorage.setItem("zlDisplayName", myDisplayName);
         showMain();
       } else {
         alert("Wrong password! 💔 Try again.");
       }
     });
 
-    // LOGOUT handler
     logoutBtn.addEventListener("click", () => {
       localStorage.removeItem("rememberZL");
-      mainContent.style.display = "none";
-      loginCard.style.display = "block";
-      passwordInput.value = "";
+      localStorage.removeItem("zlUser");
+      localStorage.removeItem("zlDisplayName");
+      location.reload();
     });
 
     function showMain() {
       loginCard.style.display = "none";
-      mainContent.style.display = "block";
+      mainContent.classList.remove("hidden");
       initFirebaseSync();
       loadQuote();
       loadChallenge();
       updateCountdown();
+      statusConnected();
+      displayLocalBasics();
     }
 
-    // FIREBASE SYNC
-    function initFirebaseSync() {
-      const colorsRef = ref(db, "colors");
-      const noteRef = ref(db, "sharedNote");
+    // STATUS
+    function statusConnected() {
+      statusText.textContent = "Connected";
+      statusDot.style.background = "#5fbf6b";
+      document.getElementById("statusTextSmall").textContent = "Connected";
+      document.getElementById("statusDotSmall").style.background = "#5fbf6b";
+    }
 
-      onValue(colorsRef, (snapshot) => {
-        const val = snapshot.val() || {};
-        if (val.logan) updateColor("logan", val.logan);
-        if (val.ezekiel) updateColor("ezekiel", val.ezekiel);
+    // Basic UI display
+    function displayLocalBasics() {
+      userBadge.textContent = `${me ? me.charAt(0).toUpperCase() + me.slice(1) : ""}`;
+      meGreeting.innerText = `Hi ${myDisplayName || (me && me.charAt(0).toUpperCase()+me.slice(1))}!`;
+      displayNameEl.textContent = myDisplayName || (me && me.charAt(0).toUpperCase()+me.slice(1));
+      meAvatarSmallImgEl.src = ""; // will be filled by sync
+    }
+
+    // COUNTDOWN
+    function updateCountdown() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      let next = new Date(`${currentYear}-11-02T00:00:00`);
+      if (now > next) next = new Date(`${currentYear + 1}-11-02T00:00:00`);
+      const diff = next - now;
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      countdownEl.textContent = `${days} day${days !== 1 ? "s" : ""} until our anniversary 💞`;
+    }
+
+    // FIREBASE SYNC: colors, avatars, notes, gallery, memories, chat, quotes, challenges
+    function initFirebaseSync() {
+      // Colors & basic profile
+      onValue(ref(db, "profiles"), (snap) => {
+        const data = snap.val() || {};
+        // ensure defaults exist
+        USERS.forEach(u => {
+          const profile = (data[u] || {});
+          // name, petForOther, avatarUrl, emotion, color (derived), displayName
+          document.getElementById(u === "logan" ? "leftName" : "rightName").textContent = profile.displayName || (u === "logan" ? "Logan" : "Ezekiel");
+          document.getElementById(u === "logan" ? "leftPet" : "rightPet").textContent = profile.petName ? `Calls them: ${profile.petName}` : "";
+          document.getElementById(u === "logan" ? "leftEmotion" : "rightEmotion").textContent = profile.emotion ? `${EMOTION_MAP[profile.emotion]?.emoji || ""} ${EMOTION_MAP[profile.emotion]?.label || profile.emotion}` : "";
+          // avatars
+          const avatarUrl = profile.avatarUrl || "";
+          if (u === me) {
+            meAvatarImg.src = avatarUrl;
+            meAvatarSmallImgEl.src = avatarUrl;
+            myAvatarImg.src = avatarUrl;
+          }
+          if (u === "logan") leftAvatarImg.src = avatarUrl || "";
+          if (u === "ezekiel") rightAvatarImg.src = avatarUrl || "";
+          // swatches color by emotion hex
+          const hex = profile.emotion ? (EMOTION_MAP[profile.emotion]?.hex || "#444") : "#444";
+          if (u === "logan") loganSwatch.style.background = hex;
+          if (u === "ezekiel") ezekielSwatch.style.background = hex;
+        });
+        // update background blend using both colors
+        const logHex = data.logan?.emotion ? (EMOTION_MAP[data.logan.emotion]?.hex || "#f48fb1") : "#f48fb1";
+        const ezHex = data.ezekiel?.emotion ? (EMOTION_MAP[data.ezekiel.emotion]?.hex || "#64b5f6") : "#64b5f6";
+        bgMain.style.background = `linear-gradient(90deg, ${logHex} 0%, ${ezHex} 100%)`;
       });
 
-      onValue(noteRef, (snapshot) => {
-        const note = snapshot.val() || "";
+      // Shared note
+      onValue(ref(db, "sharedNote"), (snap) => {
+        const note = snap.val() || "";
         textarea.value = note;
         notePreview.textContent = note ? note : "(No shared note yet — click the ★ to add)";
       });
+
+      // Gallery
+      onValue(ref(db, "gallery"), (snap) => {
+        const items = snap.val() || {};
+        renderGallery(items);
+      });
+
+      // Memories
+      onValue(ref(db, "memories"), (snap) => {
+        const items = snap.val() || {};
+        renderMemories(items);
+      });
+
+      // chat messages
+      onValue(ref(db, "chat/messages"), (snap) => {
+        const msgs = snap.val() || {};
+        renderChat(msgs);
+      });
+
+      // typing status
+      onValue(ref(db, "chat/typing"), (snap) => {
+        const typing = snap.val() || {};
+        const other = me === "logan" ? "ezekiel" : "logan";
+        if (typing[other]) typingStatus.textContent = `${other.charAt(0).toUpperCase()+other.slice(1)} is typing…`;
+        else typingStatus.textContent = "";
+      });
+
+      // quotes and challenges
+      onValue(ref(db, "quotes"), (snap) => {
+        const q = snap.val() || {};
+        renderQuotes(q);
+      });
+      onValue(ref(db, "challenges"), (snap) => {
+        const c = snap.val() || {};
+        renderChallenges(c);
+      });
     }
 
-    // DROPDOWNS
-    document.querySelectorAll(".dropdown").forEach((dd) => {
-      const button = dd.querySelector(".dropdown-button");
-      const list = dd.querySelector(".dropdown-list");
-      const person = dd.getAttribute("data-person");
-
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".dropdown-list").forEach((other) => {
-          if (other !== list) other.classList.remove("show");
-        });
-        list.classList.toggle("show");
-      });
-
-      list.querySelectorAll(".dropdown-option").forEach((opt) => {
-        opt.addEventListener("click", () => {
-          const value = opt.dataset.value;
-          button.textContent = opt.textContent;
-          list.classList.remove("show");
-          set(ref(db, "colors/" + person), value);
-        });
-      });
-    });
-
-	    function updateColor(person, color) {
-	  const map = {
-	    red: { hex: "#ef5350", name: "Dominant" },
-	    orange: { hex: "#ffb74d", name: "Confused" },
-	    yellow: { hex: "#fff176", name: "Breeding" },
-	    green: { hex: "#81c784", name: "Submissive" },
-	    lightblue: { hex: "#81d4fa", name: "Lovey" },
-	    blue: { hex: "#64b5f6", name: "Attention" },
-	    purple: { hex: "#ba68c8", name: "Desperate" },
-	    pink: { hex: "#f48fb1", name: "Romantic" },
-	    white: { hex: "#f5f5f5", name: "Flustered" },
-	    brown: { hex: "#8d6e63", name: "Annoyed" }
-	  };
-	
-	  const info = map[color] || { hex: "#444", name: "— choose —" };
-	
-	  // Update swatches
-	  if (person === "logan") {
-	    loganSwatch.style.background = info.hex;
-	
-	    // Update button text for Logan
-	    document.querySelector('.dropdown[data-person="logan"] .dropdown-button')
-	      .textContent = info.name;
-	
-	    bgMain.style.background = `linear-gradient(90deg, ${info.hex}, ${ezekielSwatch.style.background || "#64b5f6"})`;
-	
-	  } else if (person === "ezekiel") {
-	    ezekielSwatch.style.background = info.hex;
-	
-	    // Update button text for Ezekiel
-	    document.querySelector('.dropdown[data-person="ezekiel"] .dropdown-button')
-	      .textContent = info.name;
-	
-	    bgMain.style.background = `linear-gradient(90deg, ${loganSwatch.style.background || "#f48fb1"}, ${info.hex})`;
-	  }
-	}
-
-    // SHARED NOTE
+    // SHARED NOTE logic (debounced)
+    let noteTimeout;
     openNoteBtn.addEventListener("click", () => {
       modalBackdrop.style.display = "flex";
       textarea.focus();
     });
-    closeNoteBtn.addEventListener("click", () => {
-      modalBackdrop.style.display = "none";
+    openNoteBtn2.addEventListener("click", () => {
+      modalBackdrop.style.display = "flex";
+      textarea.focus();
     });
+    closeNoteBtn.addEventListener("click", () => modalBackdrop.style.display = "none");
     saveNoteBtn.addEventListener("click", saveNote);
 
-    let noteTimeout;
     textarea.addEventListener("input", () => {
       clearTimeout(noteTimeout);
-      noteTimeout = setTimeout(saveNote, 600);
+      noteTimeout = setTimeout(saveNote, 700);
     });
 
     function saveNote() {
       set(ref(db, "sharedNote"), textarea.value);
     }
 
-    // STATUS indicator
-    setTimeout(() => {
-      statusEl.classList.add("connected");
-      statusText.textContent = "Connected";
-    }, 1000);
+    // PROFILE: upload avatar
+    profilePicInput.addEventListener("change", async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const path = `avatars/${me}/${Date.now()}_${f.name}`;
+      const storageRef = sref(storage, path);
+      await uploadBytes(storageRef, f);
+      const url = await getDownloadURL(storageRef);
+      // update profile
+      update(ref(db, `profiles/${me}`), { avatarUrl: url }).catch(console.error);
+    });
 
-    // COUNTDOWN
-    function updateCountdown() {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      let next = new Date(`${currentYear}-11-02`);
-      if (now > next) next = new Date(`${currentYear + 1}-11-02`);
-      const diff = next - now;
-      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      countdownEl.textContent = `${days} day${days !== 1 ? "s" : ""} until our anniversary 💞`;
+    savePetBtn.addEventListener("click", () => {
+      const pet = petNameInput.value.trim();
+      update(ref(db, `profiles/${me}`), { petName: pet }).then(() => {
+        myPetPreview.textContent = pet;
+      });
+    });
+
+    saveLocalNameBtn.addEventListener("click", () => {
+      myDisplayName = localNameInput.value.trim() || (me && me.charAt(0).toUpperCase()+me.slice(1));
+      update(ref(db, `profiles/${me}`), { displayName: myDisplayName });
+      displayNameEl.textContent = myDisplayName;
+      localStorage.setItem("zlDisplayName", myDisplayName);
+    });
+
+    emotionSelect.addEventListener("change", () => {
+      const emo = emotionSelect.value;
+      update(ref(db, `profiles/${me}`), { emotion: emo || "" });
+    });
+
+    // GALLERY: upload memory image
+    openUploadMemoryBtn.addEventListener("click", async () => {
+      // simple input flow using file picker
+      const f = await filePicker();
+      if (!f) return;
+      const caption = prompt("Add a short caption (optional):", "");
+      const path = `gallery/${me}/${Date.now()}_${f.name}`;
+      const storageRef = sref(storage, path);
+      await uploadBytes(storageRef, f);
+      const url = await getDownloadURL(storageRef);
+      const item = { url, caption: caption || "", author: me, ts: Date.now() };
+      const key = push(ref(db, "gallery")).key;
+      const updateObj = {};
+      updateObj[`gallery/${key}`] = item;
+      update(ref(db), updateObj);
+    });
+
+    async function filePicker() {
+      return new Promise((res) => {
+        const inp = document.createElement("input");
+        inp.type = "file";
+        inp.accept = "image/*,audio/*";
+        inp.onchange = (e) => res(e.target.files[0]);
+        inp.click();
+      });
     }
 
-	// QUOTE + CHALLENGE
-	const quotes = [
-	  "Love is not what you say, it's what you do.",
-	  "Even on quiet days, I choose you.",
-	  "Every storm ends with your smile.",
-	  "You're my home in every season.",
-	  "Your laugh is my favorite melody.",
-	  "In your eyes, I find my calm.",
-	  "Love grows in the little moments.",
-	  "Every day with you is my favorite chapter.",
-	  "You are my once in a lifetime.",
-	  "With you, ordinary feels magical.",
-	  "Our love speaks softly but lasts loudly.",
-	  "I fall for you a little more every day.",
-	  "You make my heart feel understood.",
-	  "We’re not perfect, but we’re real.",
-	  "Time slows down when you're near."
-	];
-
-	// CHALLENGES (Mixed: Casual + Romantic + Flirty)
-	const challenges = [
-	  "Send one message that’ll make them think about you all day.",
-	  "Describe your perfect ‘virtual date’ in detail.",
-	  "Give them a compliment that makes them blush a little.",
-	  "Send an ‘innocent’ message with not-so-innocent undertones.",
-	  "Say something flirty using only emojis.",
-	  "Play truth or dare (chat edition).",
-	  "Confess one thing you find irresistible about them.",
-	  "Describe what you’d whisper if they were beside you.",
-	  "Write a short flirty paragraph and send it when they least expect it.",
-	  "Start a ‘Would you rather’ game with romantic twists.",
-	  "Share one fantasy—keep it sweet and daydreamy.",
-	  "End your next message with a mysterious ‘to be continued…’",
-	  "Use their name in a way that makes it sound like a secret.",
-	  "Send a voice note that’s just your laugh or a ‘miss you’ whisper.",
-	  "Type something sweet… then delete half before sending 😉.",
-	  "Share a random photo that reminds you of them.",
-	  "Ask them a deep question you’ve never asked before.",
-	  "Tell them three small things that made you think of them today.",
-	  "Send your favorite quote about love and say why it fits them.",
-	  "Plan your next call or video date together.",
-	  "Share your current song or playlist that fits your mood.",
-	  "Ask them to describe your vibe in three words.",
-	  "Use a GIF or meme to flirt subtly.",
-	  "Tell them one thing you’d love to do together someday.",
-	  "Set your chat nickname for them to something secretly romantic."
-	];
-
-    function loadQuote() {
-      const q = quotes[Math.floor(Math.random() * quotes.length)];
-      quoteEl.textContent = `"${q}"`;
+    function renderGallery(items) {
+      galleryGrid.innerHTML = "";
+      const arr = Object.entries(items).sort((a,b)=>b[1].ts - a[1].ts);
+      arr.forEach(([k,v]) => {
+        const img = document.createElement("img");
+        img.src = v.url;
+        img.alt = v.caption || "";
+        img.addEventListener("click", () => {
+          lightboxImg.src = v.url;
+          lightbox.style.display = "flex";
+        });
+        galleryGrid.appendChild(img);
+      });
     }
 
-    function loadChallenge() {
-      const c = challenges[Math.floor(Math.random() * challenges.length)];
-      challengeEl.textContent = c;
+    // MEMORY BANK: add text memory
+    openNewMemoryBtn.addEventListener("click", () => openMemoryModal());
+    addMemoryBtn.addEventListener("click", () => openMemoryModal());
+    function openMemoryModal(existingKey, existing) {
+      const title = prompt("Memory title:", existing ? existing.title : "");
+      if (!title) return;
+      const body = prompt("Memory text:", existing ? existing.text : "");
+      if (body === null) return;
+      const category = prompt("Category (sweet / milestone / goofy / other):", existing ? existing.category : "sweet");
+      const item = { title, text: body, category: category || "other", author: me, ts: Date.now() };
+      if (existingKey) {
+        update(ref(db, `memories/${existingKey}`), item);
+      } else {
+        const key = push(ref(db, "memories")).key;
+        const updates = {};
+        updates[`memories/${key}`] = item;
+        update(ref(db), updates);
+      }
     }
 
-    // CLOSE dropdowns on outside click
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".dropdown")) {
-        document.querySelectorAll(".dropdown-list").forEach((list) => list.classList.remove("show"));
+    function renderMemories(items) {
+      memoriesList.innerHTML = "";
+      const arr = Object.entries(items).sort((a,b)=>b[1].ts - a[1].ts);
+      arr.forEach(([k,v]) => {
+        const el = document.createElement("div");
+        el.className = "memory-item";
+        el.innerHTML = `<div style="display:flex;justify-content:space-between;"><strong>${v.title}</strong><div class="small">${new Date(v.ts).toLocaleDateString()}</div></div>
+                        <div class="small" style="margin-top:6px">${v.text}</div>
+                        <div style="display:flex;gap:8px;margin-top:8px;">
+                          <button data-key="${k}" class="editMem">Edit</button>
+                          <button data-key="${k}" class="delMem" style="background:rgba(255,255,255,0.03)">Delete</button>
+                        </div>`;
+        memoriesList.appendChild(el);
+      });
+      // events
+      document.querySelectorAll(".editMem").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          const mem = items[key];
+          openMemoryModal(key, mem);
+        });
+      });
+      document.querySelectorAll(".delMem").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          if (confirm("Delete this memory?")) remove(ref(db, `memories/${key}`));
+        });
+      });
+    }
+
+    // CHAT: send text, image, voice; typing indicator
+    sendBtn.addEventListener("click", sendChat);
+    chatInput.addEventListener("keydown", (e) => {
+      showTyping(true);
+      if (typingTimer) clearTimeout(typingTimer);
+      typingTimer = setTimeout(()=> showTyping(false), 800);
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendChat();
       }
     });
+
+    pickImageBtn.addEventListener("click", () => chatImageInput.click());
+    chatImageInput.addEventListener("change", async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const path = `chat_images/${me}/${Date.now()}_${f.name}`;
+      const storageRef = sref(storage, path);
+      await uploadBytes(storageRef, f);
+      const url = await getDownloadURL(storageRef);
+      postMessage({ type: "image", url });
+    });
+
+    // Voice recording (MediaRecorder)
+    recordBtn.addEventListener("click", async () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") return;
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true }).catch(()=>null);
+      if (!stream) { alert("Microphone access denied."); return; }
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = (e) => { if (e.data.size) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(recordedChunks, { type: "audio/webm" });
+        const path = `chat_audio/${me}/${Date.now()}.webm`;
+        const storageRef = sref(storage, path);
+        await uploadBytes(storageRef, blob);
+        const url = await getDownloadURL(storageRef);
+        postMessage({ type: "audio", url });
+        recIndicator.classList.add("hidden");
+      };
+      mediaRecorder.start();
+      recIndicator.classList.remove("hidden");
+    });
+
+    stopRecBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
+    });
+
+    function showTyping(val) {
+      update(ref(db, `chat/typing/${me}`), val ? true : null); // set true or null to remove
+      if (!val) update(ref(db, `chat/typing/${me}`), null);
+    }
+
+    async function sendChat() {
+      const txt = chatInput.value.trim();
+      if (!txt) return;
+      postMessage({ type: "text", text: txt });
+      chatInput.value = "";
+      showTyping(false);
+    }
+
+    function postMessage(payload) {
+      const data = {
+        author: me,
+        ts: Date.now(),
+        ...payload
+      };
+      const key = push(ref(db, "chat/messages")).key;
+      const updates = {};
+      updates[`chat/messages/${key}`] = data;
+      update(ref(db), updates);
+    }
+
+    function renderChat(msgs) {
+      // msgs is object
+      chatWindow.innerHTML = "";
+      const arr = Object.entries(msgs).sort((a,b)=>a[1].ts - b[1].ts);
+      arr.forEach(([k,v]) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "message " + (v.author === me ? "me" : "them");
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        // include author avatar small
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.style.width = "36px";
+        avatar.style.height = "36px";
+        avatar.style.flex = "0 0 auto";
+        avatar.style.overflow = "hidden";
+        const authorAvatar = (v.author === "logan" ? leftAvatarImg.src : rightAvatarImg.src) || "";
+        avatar.innerHTML = `<img src="${authorAvatar}" style="width:100%;height:100%;object-fit:cover;">`;
+
+        // content
+        if (v.type === "image") {
+          bubble.innerHTML = `<img class="msg-img" src="${v.url}" alt="image">`;
+          bubble.querySelector("img").addEventListener("click", () => {
+            lightboxImg.src = v.url;
+            lightbox.style.display = "flex";
+          });
+        } else if (v.type === "audio") {
+          bubble.innerHTML = `<audio controls src="${v.url}"></audio>`;
+        } else {
+          bubble.innerText = v.text || "";
+        }
+
+        if (v.author === me) {
+          wrapper.appendChild(bubble);
+        } else {
+          wrapper.appendChild(avatar);
+          wrapper.appendChild(bubble);
+        }
+        chatWindow.appendChild(wrapper);
+      });
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    // QUOTES & CHALLENGES: add/remove
+    addQuoteBtn.addEventListener("click", () => {
+      const txt = newQuoteInput.value.trim();
+      if (!txt) return;
+      const key = push(ref(db, "quotes")).key;
+      const updates = {};
+      updates[`quotes/${key}`] = { text: txt, author: me, ts: Date.now() };
+      update(ref(db), updates);
+      newQuoteInput.value = "";
+    });
+
+    addChallengeBtn.addEventListener("click", () => {
+      const txt = newChallengeInput.value.trim();
+      if (!txt) return;
+      const key = push(ref(db, "challenges")).key;
+      const updates = {};
+      updates[`challenges/${key}`] = { text: txt, author: me, ts: Date.now() };
+      update(ref(db), updates);
+      newChallengeInput.value = "";
+    });
+
+    function renderQuotes(qs) {
+      quotesList.innerHTML = "";
+      const arr = Object.entries(qs).sort((a,b)=>b[1].ts - a[1].ts);
+      arr.forEach(([k,v]) => {
+        const el = document.createElement("div");
+        el.style.display = "flex";
+        el.style.justifyContent = "space-between";
+        el.style.alignItems = "center";
+        el.style.padding = "6px 0";
+        el.innerHTML = `<div class="small">"${v.text}" <span style="opacity:.6">— ${v.author}</span></div>
+                        <div>
+                          <button data-key="${k}" class="useQuote">Use</button>
+                          <button data-key="${k}" class="delQuote" style="background:rgba(255,255,255,0.03)">Delete</button>
+                        </div>`;
+        quotesList.appendChild(el);
+      });
+      document.querySelectorAll(".useQuote").forEach(b => b.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
+        // set as today's quote (store under /meta/todayQuote)
+        onValue(ref(db, `quotes/${key}`), (snap) => {
+          const val = snap.val();
+          if (val) set(ref(db, "meta/todayQuote"), val);
+        }, { onlyOnce: true });
+      }));
+      document.querySelectorAll(".delQuote").forEach(b => b.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
+        if (confirm("Delete quote?")) remove(ref(db, `quotes/${key}`));
+      }));
+    }
+
+    function renderChallenges(cs) {
+      challengesList.innerHTML = "";
+      const arr = Object.entries(cs).sort((a,b)=>b[1].ts - a[1].ts);
+      arr.forEach(([k,v]) => {
+        const el = document.createElement("div");
+        el.style.display = "flex";
+        el.style.justifyContent = "space-between";
+        el.style.alignItems = "center";
+        el.style.padding = "6px 0";
+        el.innerHTML = `<div class="small">${v.text} <span style="opacity:.6">— ${v.author}</span></div>
+                        <div>
+                          <button data-key="${k}" class="useChallenge">Use</button>
+                          <button data-key="${k}" class="delChallenge" style="background:rgba(255,255,255,0.03)">Delete</button>
+                        </div>`;
+        challengesList.appendChild(el);
+      });
+      document.querySelectorAll(".useChallenge").forEach(b => b.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
+        onValue(ref(db, `challenges/${key}`), (snap) => {
+          const val = snap.val();
+          if (val) set(ref(db, "meta/todayChallenge"), val);
+        }, { onlyOnce: true });
+      }));
+      document.querySelectorAll(".delChallenge").forEach(b => b.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
+        if (confirm("Delete challenge?")) remove(ref(db, `challenges/${key}`));
+      }));
+    }
+
+    // load today's quote/challenge from meta if set, else random fallback from seeded lists
+    const seededQuotes = [
+      "Love is not what you say, it's what you do.",
+      "Even on quiet days, I choose you.",
+      "Every storm ends with your smile.",
+      "You're my home in every season."
+    ];
+    const seededChallenges = [
+      "Send one message that’ll make them think about you all day.",
+      "Describe your perfect ‘virtual date’ in detail.",
+      "Give them a compliment that makes them blush a little."
+    ];
+
+    function loadQuote() {
+      onValue(ref(db, "meta/todayQuote"), (snap) => {
+        const val = snap.val();
+        quoteEl.textContent = val ? `"${val.text}" — ${val.author}` : `"${seededQuotes[Math.floor(Math.random()*seededQuotes.length)]}"`;
+      });
+    }
+    function loadChallenge() {
+      onValue(ref(db, "meta/todayChallenge"), (snap) => {
+        const val = snap.val();
+        challengeEl.textContent = val ? `${val.text} — ${val.author}` : seededChallenges[Math.floor(Math.random()*seededChallenges.length)];
+      });
+    }
+
+    // initial seed: if no quotes/challenges exist, write defaults (non-destructive)
+    (async function seedIfEmpty(){
+      onValue(ref(db, "quotes"), (snap) => {
+        if (!snap.exists()) {
+          const updates = {};
+          seededQuotes.forEach(q => {
+            const k = push(ref(db, "quotes")).key;
+            updates[`quotes/${k}`] = { text: q, author: "system", ts: Date.now() };
+          });
+          update(ref(db), updates);
+        }
+      }, { onlyOnce: true });
+      onValue(ref(db, "challenges"), (snap) => {
+        if (!snap.exists()) {
+          const updates = {};
+          seededChallenges.forEach(c => {
+            const k = push(ref(db, "challenges")).key;
+            updates[`challenges/${k}`] = { text: c, author: "system", ts: Date.now() };
+          });
+          update(ref(db), updates);
+        }
+      }, { onlyOnce: true });
+    })();
+
+    // Close dropdown-like modals on outside click (for completeness)
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".dropdown")) {
+        document.querySelectorAll(".dropdown-list").forEach(list => list.classList.remove("show"));
+      }
+    });
+
+    // Utility: simple update wrapper
+    function update(dbRef, value) {
+      return set(ref(db, dbRef.path ? dbRef.path : dbRef), value).catch(console.error);
+    }
+
+    // Small safety wrapper for push+update
+    function pushRef(path) { return push(ref(db, path)).key; }
+
+    // small UI helpers for light UX
+    document.getElementById("openUploadMemoryBtn").addEventListener("click", ()=>{ /* handled earlier */ });
+    document.getElementById("openNewMemoryBtn").addEventListener("click", ()=>{ /* handled earlier */ });
+
+    // Kickstart minimal display after short delay
+    setTimeout(()=> {
+      document.querySelectorAll(".tab[data-tab='dashboard']")[0]?.click();
+    }, 400);
+
+    // Extra: when unloading, clear typing flag
+    window.addEventListener("beforeunload", () => {
+      if (me) update(ref(db, `chat/typing/${me}`), null);
+    });
+
+    // Note: small helper wrappers for firebase update used above replaced by direct set/update where convenient.
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
