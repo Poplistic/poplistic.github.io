@@ -326,28 +326,42 @@
       });
     });
 
-    function updateColor(person, color) {
-      const map = {
-        red: "#ef5350",
-        orange: "#ffb74d",
-        yellow: "#fff176",
-        green: "#81c784",
-        lightblue: "#81d4fa",
-        blue: "#64b5f6",
-        purple: "#ba68c8",
-        pink: "#f48fb1",
-        white: "#f5f5f5",
-        brown: "#8d6e63",
-      };
-      const hex = map[color] || "#444";
-      if (person === "logan") {
-        loganSwatch.style.background = hex;
-        bgMain.style.background = `linear-gradient(90deg, ${hex}, ${ezekielSwatch.style.background || "#64b5f6"})`;
-      } else if (person === "ezekiel") {
-        ezekielSwatch.style.background = hex;
-        bgMain.style.background = `linear-gradient(90deg, ${loganSwatch.style.background || "#f48fb1"}, ${hex})`;
-      }
-    }
+	    function updateColor(person, color) {
+	  const map = {
+	    red: { hex: "#ef5350", name: "Dominant" },
+	    orange: { hex: "#ffb74d", name: "Confused" },
+	    yellow: { hex: "#fff176", name: "Breeding" },
+	    green: { hex: "#81c784", name: "Submissive" },
+	    lightblue: { hex: "#81d4fa", name: "Lovey" },
+	    blue: { hex: "#64b5f6", name: "Attention" },
+	    purple: { hex: "#ba68c8", name: "Desperate" },
+	    pink: { hex: "#f48fb1", name: "Romantic" },
+	    white: { hex: "#f5f5f5", name: "Flustered" },
+	    brown: { hex: "#8d6e63", name: "Annoyed" }
+	  };
+	
+	  const info = map[color] || { hex: "#444", name: "— choose —" };
+	
+	  // Update swatches
+	  if (person === "logan") {
+	    loganSwatch.style.background = info.hex;
+	
+	    // Update button text for Logan
+	    document.querySelector('.dropdown[data-person="logan"] .dropdown-button')
+	      .textContent = info.name;
+	
+	    bgMain.style.background = `linear-gradient(90deg, ${info.hex}, ${ezekielSwatch.style.background || "#64b5f6"})`;
+	
+	  } else if (person === "ezekiel") {
+	    ezekielSwatch.style.background = info.hex;
+	
+	    // Update button text for Ezekiel
+	    document.querySelector('.dropdown[data-person="ezekiel"] .dropdown-button')
+	      .textContent = info.name;
+	
+	    bgMain.style.background = `linear-gradient(90deg, ${loganSwatch.style.background || "#f48fb1"}, ${info.hex})`;
+	  }
+	}
 
     // SHARED NOTE
     openNoteBtn.addEventListener("click", () => {
@@ -453,6 +467,7 @@
   </script>
 </body>
 </html>
+
 
 
 
