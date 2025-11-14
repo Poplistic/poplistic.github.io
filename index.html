@@ -488,7 +488,7 @@
     window.addEventListener("load", () => {
       if (localStorage.getItem("rememberZL") === "true" && localStorage.getItem("zlUser")) {
         me = localStorage.getItem("zlUser");
-        meDisplayName = localStorage.getItem("zlDisplayName") || (me === "logan" ? "Logan" : "Ezekiel");
+        myDisplayName = localStorage.getItem("zlDisplayName") || (me === "logan" ? "Logan" : "Ezekiel");
         showMain();
       }
     });
@@ -711,7 +711,7 @@
       return new Promise((res) => {
         const inp = document.createElement("input");
         inp.type = "file";
-        inp.accept = "image/*,audio/*";
+        inp.accept = "image/*";
         inp.onchange = (e) => res(e.target.files[0]);
         inp.click();
       });
@@ -1035,12 +1035,7 @@
       }
     });
 
-    // Utility: simple update wrapper
-    function update(dbRef, value) {
-      return set(ref(db, dbRef.path ? dbRef.path : dbRef), value).catch(console.error);
-    }
-
-    // Small safety wrapper for push+update
+    // Small safety wrapper for push+update (not required but kept)
     function pushRef(path) { return push(ref(db, path)).key; }
 
     // small UI helpers for light UX
@@ -1057,7 +1052,7 @@
       if (me) update(ref(db, `chat/typing/${me}`), null);
     });
 
-    // Note: small helper wrappers for firebase update used above replaced by direct set/update where convenient.
+    // Note: everything uses Firebase's update/set/remove APIs — no local 'update' wrapper to conflict.
   </script>
 </body>
 </html>
