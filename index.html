@@ -70,6 +70,9 @@
     .offline { color: #b94a4a; }
     .global-typing { position: fixed; bottom: 50px; right: 14px; background: rgba(255,255,255,0.03); padding: 6px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); transition: opacity 0.3s ease; }
     .global-typing.hidden { opacity: 0; pointer-events: none; }
+    .channel { margin: 8px 0; padding: 8px; background: rgba(255,255,255,0.01); border-radius: 8px; border-left: 3px solid var(--accent); }
+    .channel h4 { margin: 0 0 4px; color: var(--accent); }
+    .channel-btn { background: rgba(255,255,255,0.05); margin: 2px; }
   </style>
 </head>
 <body>
@@ -107,6 +110,7 @@
           <div class="tab" data-tab="memories">Memory Bank</div>
           <div class="tab" data-tab="profile">Profile</div>
           <div class="tab" data-tab="quotes">Quotes & Challenges</div>
+          <div class="tab" data-tab="roleplay">Roleplay Channels</div>
         </div>
         <div class="grid" style="margin-top:12px;">
           <!-- MAIN COLUMN -->
@@ -224,6 +228,28 @@
                 <button id="addChallengeBtn">Add Challenge</button>
               </div>
               <div id="challengesList" style="margin-top:8px"></div>
+            </div>
+            <!-- Roleplay Channels -->
+            <div id="tab-roleplay" class="panel tabPanel hidden">
+              <h3 style="margin:6px 0">Roleplay Channels</h3>
+              <p class="small">Private scenarios for us.</p>
+              <div class="channel">
+                <h4>🐾 Paws Worship</h4>
+                <button class="channel-btn" data-channel="paws">Enter Channel</button>
+              </div>
+              <div class="channel">
+                <h4>🌱 Breeding Forest</h4>
+                <button class="channel-btn" data-channel="breeding">Enter Channel</button>
+              </div>
+              <div class="channel">
+                <h4>💕 Puppy Play</h4>
+                <button class="channel-btn" data-channel="puppy">Enter Channel</button>
+              </div>
+              <div id="roleplayChat" class="chat-window hidden" style="margin-top:12px;"></div>
+              <div class="controls hidden" id="roleplayControls" style="margin-top:8px;">
+                <input id="roleplayInput" type="text" placeholder="Roleplay message..." style="flex:1;">
+                <button id="sendRoleplay">Send</button>
+              </div>
             </div>
           </div>
           <!-- RIGHT COLUMN -->
@@ -388,6 +414,12 @@
     const globalTyping = document.getElementById("globalTyping");
     // Presence
     const presenceStatus = document.getElementById("presenceStatus");
+    // Roleplay
+    const roleplayChat = document.getElementById("roleplayChat");
+    const roleplayInput = document.getElementById("roleplayInput");
+    const sendRoleplay = document.getElementById("sendRoleplay");
+    const roleplayControls = document.getElementById("roleplayControls");
+    let currentChannel = null;
     // constants & mappings
     const PASSWORD = "Z+L-Forever";
     const USERS = ["logan", "ezekiel"];
@@ -429,6 +461,7 @@
       document.getElementById("tab-" + which).classList.remove("hidden");
       // autofocus for chat input
       if (which === "chat") chatInput.focus();
+      if (which === "roleplay") roleplayInput.focus();
     }));
     // small nav shortcuts
     document.getElementById("goToChat").addEventListener("click", () => document.querySelector('.tab[data-tab="chat"]').click());
@@ -486,6 +519,7 @@
       initClicker();
       initVolume();
       setupPresence();
+      initRoleplayEvents();
     }
     // STATUS
     function statusConnected() {
@@ -509,6 +543,15 @@
       const diff = next - now;
       const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
       countdownEl.textContent = `${days} day${days !== 1 ? "s" : ""} until our anniversary 💞`;
+    }
+    // Roleplay events init
+    function initRoleplayEvents() {
+      document.querySelectorAll('.channel-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const channel = btn.getAttribute('data-channel');
+          startRoleplay(channel);
+        });
+      });
     }
     // FIREBASE SYNC: colors, avatars, notes, gallery, memories, chat, quotes, challenges
     function initFirebaseSync() {
@@ -594,6 +637,14 @@
         const other = me === "logan" ? "ezekiel" : "logan";
         const otherStatus = pres[other] ? "🟢 Online" : "🔴 Offline";
         presenceStatus.innerHTML = `<span class="${pres[other] ? 'online' : 'offline'}">${other.charAt(0).toUpperCase() + other.slice(1)}: ${otherStatus}</span>`;
+      });
+      // Roleplay channels
+      onValue(ref(db, "roleplay/messages"), (snap) => {
+        if (currentChannel) {
+          const msgs = snap.val() || {};
+          const channelMsgs = Object.fromEntries(Object.entries(msgs).filter(([k, v]) => v.channel === currentChannel));
+          renderRoleplayChat(channelMsgs);
+        }
       });
     }
     // SHARED NOTE logic (debounced)
@@ -770,6 +821,45 @@
         chatWindow.appendChild(wrapper);
       });
       chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+    // Roleplay
+    function startRoleplay(channel) {
+      currentChannel = channel;
+      roleplayChat.classList.remove("hidden");
+      roleplayControls.classList.remove("hidden");
+      roleplayChat.innerHTML = `<p class="small">Entered ${channel} channel.</p>`;
+      // Clear old messages if needed
+    }
+    sendRoleplay.addEventListener("click", () => {
+      if (!currentChannel || !me) return;
+      const txt = roleplayInput.value.trim();
+      if (!txt) return;
+      const key = push(ref(db, "roleplay/messages")).key;
+      const data = { author: me, text: txt, channel: currentChannel, ts: Date.now() };
+      const updates = {};
+      updates[`roleplay/messages/${key}`] = data;
+      update(ref(db), updates);
+      roleplayInput.value = "";
+    });
+    roleplayInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendRoleplay.click();
+      }
+    });
+    function renderRoleplayChat(msgs) {
+      roleplayChat.innerHTML = "";
+      const arr = Object.entries(msgs).sort((a,b)=>a[1].ts - b[1].ts);
+      arr.forEach(([k,v]) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "message " + (v.author === me ? "me" : "them");
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.innerText = `[${v.channel}] ${v.text}`;
+        wrapper.appendChild(bubble);
+        roleplayChat.appendChild(wrapper);
+      });
+      roleplayChat.scrollTop = roleplayChat.scrollHeight;
     }
     // QUOTES & CHALLENGES: add/remove
     addQuoteBtn.addEventListener("click", () => {
@@ -981,4 +1071,3 @@
   </script>
 </body>
 </html>
-
